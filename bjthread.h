@@ -1,5 +1,6 @@
 #ifndef __BJTHREAD_H__
 #define __BJTHREAD_H__
+#include "bjthread_lib.h"
 
 /*
  * Wystartowanie watku uzytkownika poprzez podanie adresu funkcji reprezentujacej watek i priorytetu jego wykonania.
@@ -15,17 +16,17 @@ void bjthread_exit(void);
 /*
  * Utworzenie mutexa
  */
-//int bjthread_mutex(mutex_t *mutex);
+int bjthread_mutex_init(bjmutex_t *bjmutex);
 
 /*
  * Zajecie mutexa
  */
-//int bjthread_lock(mutex_t *mutex);
+int bjthread_mutex_lock(bjmutex_t *bjmutex);
 
 /*
  * Zwolnienie mutexa
  */
-//int bjthread_unlock(mutex_t *mutex);
+int bjthread_mutex_unlock(bjmutex_t *bjmutex);
 
 /*
  * Utworzenie zmiennej warunkowej
@@ -45,7 +46,7 @@ void bjthread_exit(void);
 /*
  * Usuniecie mutexa lub zmiennej warunkowej (obiekt podany przez wskaznik o)
  */
-//int bjthread_destroy(void *o);
+int bjthread_destroy(void *object);
 
 
 #endif

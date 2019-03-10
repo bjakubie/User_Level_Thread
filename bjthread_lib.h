@@ -17,14 +17,21 @@
 #define CONT_SIZE 8192
 
 typedef struct __bjthread_t bjthread_t;
+typedef struct __bjmutex_t bjmutex_t;
 
 enum state
 {
 	STATE_RUNNING,
 	STATE_READY,
-	STATE_WAITING,
-	STATE_START,
+//	STATE_WAITING,
+//	STATE_START,
 	STATE_DONE
+};
+
+enum mutex_state{
+	MUTEX_LOCK,
+	MUTEX_UNLOCK,
+	MUTEX_INDEFINITE
 };
 
 struct __bjthread_t
@@ -37,11 +44,17 @@ struct __bjthread_t
 	bjthread_t *next_node;
 };
 
+struct __bjmutex_t
+{
+	int state;
+	int blocked_thread_tid;
+};
 
-
-
+enum returned_codes
+{
+	RET_MUTEX_ERROR,
+	RET_SUCCESS = 0
+};
 
 
 #endif
-
-
