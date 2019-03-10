@@ -81,7 +81,6 @@ void bjthread_exit(void)
 
 int bjthread_mutex_init(bjmutex_t *bjmutex)
 {
-	//bjmutex = (bjmutex_t *) malloc (sizeof(bjthread_t));
 	bjmutex->state = MUTEX_UNLOCK;
 	bjmutex->blocked_thread_tid = -2; //none of tid
 }
@@ -187,5 +186,16 @@ int bjthread_cond_signal(bjcond_t *bjcond)
 
 int bjthread_destroy(void *object)
 {
-	object = NULL;
+	bjmutex_t *obj = (bjmutex_t *) object;
+	if (0 != obj->blocked_thread_tid)
+	{
+		obj->state = 0;
+		obj->blocked_thread_tid = 0;
+	}
+	else
+	{
+		bjcond_t *obj_c = (bjcond_t *) object;
+		obj_c->state = 0;
+	}
+
 }

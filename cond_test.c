@@ -58,8 +58,8 @@ int main()
     usleep(100000);
     i++;
   }
-  /*bjthread_destroy(&mutex);
-  bjthread_destroy(&cond_p);
-  bjthread_destroy(&cond_m);*/
+  bjthread_destroy((void *)&mutex);
+  bjthread_destroy((void *)&cond_p);
+  bjthread_destroy((void *)&cond_c);
   return 0;
 }

@@ -52,6 +52,7 @@ int main()
   int i = 0;
   bjthread_mutex_init(&mutex);
   printf("MUTEX_DATA: state = %d, tid = %d\n", mutex.state, mutex.blocked_thread_tid);
+
   bjthread_start(1, wypisz, NULL);
   bjthread_start(1, wypisz2, NULL);
   while(i < 22000){
@@ -59,10 +60,7 @@ int main()
     usleep(100);
     i++;
   }
-  //printf("ENDING\n");
-  //free((void *) &mutex);
-  //bjthread_destroy((void *)&mutex);
-  //printf("after_destroy\n");
-  //printf("%d\n", mutex.blocked_thread_tid);
+
+  bjthread_destroy((void *)&mutex);
   return 0;
 }
