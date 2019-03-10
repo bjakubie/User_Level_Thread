@@ -68,7 +68,7 @@ void bjthread_start(int priority, void (*func)(void), void *args)
 }
 
 
-void bjthread_exit(void) //moze tutaj po prostu stan na exit i tyle...?
+void bjthread_exit(void)
 {
 	removeFromQueue(current_thread);
 	if (scheduler_queue.count_nodes < 2)
@@ -115,7 +115,6 @@ int bjthread_mutex_lock(bjmutex_t *bjmutex)
 
 int bjthread_mutex_unlock(bjmutex_t *bjmutex)
 {
-	//printf("MUTEX_UNLOCK\n");
 	if (bjmutex == NULL || bjmutex->state == MUTEX_UNDEF)
 	{
 		perror("bjthread_mutex_unlock -> bjmutex is not initialized!");
@@ -144,7 +143,6 @@ int bjthread_mutex_unlock(bjmutex_t *bjmutex)
 
 int bjthread_cond_init(bjcond_t *bjcond)
 {
-	//printf("COND_INIT\n");
 	bjcond->state = COND_WAIT;
 }
 
@@ -157,7 +155,7 @@ int bjthread_cond_wait(bjcond_t *bjcond, bjmutex_t *bjmutex)
 		bjmutex->state = MUTEX_LOCK;
 	}
 	*/
-	//printf("COND_WAIT\n");
+
 	if (bjcond == NULL)
 	{
 		perror("bjthread_cond_wait -> do not initialized conditional variable!");
@@ -165,14 +163,12 @@ int bjthread_cond_wait(bjcond_t *bjcond, bjmutex_t *bjmutex)
 	}
 	else if (bjcond->state == COND_WAIT || bjcond->state == COND_UNDEF) //COND_UNDEF not needed probably
 	{
-		//printf("Przed schedule w cond_wait\n");
 		bjthread_mutex_unlock(bjmutex);
 		schedule();
 		bjthread_cond_wait(bjcond, bjmutex);
 	}
 	else if (bjcond->state == COND_OPEN)
 	{
-		//printf("przed zmiana stanu cond na COND_WAIT\n");
 		bjcond->state = COND_WAIT;
 	}
 	else
@@ -185,7 +181,6 @@ int bjthread_cond_wait(bjcond_t *bjcond, bjmutex_t *bjmutex)
 
 int bjthread_cond_signal(bjcond_t *bjcond)
 {
-	//printf("COND_SIGNAL\n");
 	bjcond->state = COND_OPEN;
 }
 
