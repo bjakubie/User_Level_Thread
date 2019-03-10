@@ -18,6 +18,7 @@
 
 typedef struct __bjthread_t bjthread_t;
 typedef struct __bjmutex_t bjmutex_t;
+typedef struct __bjcond_t bjcond_t;
 
 enum state
 {
@@ -29,9 +30,15 @@ enum state
 };
 
 enum mutex_state{
-	MUTEX_LOCK,
+	MUTEX_LOCK = 1,
 	MUTEX_UNLOCK,
-	MUTEX_INDEFINITE
+	MUTEX_UNDEF
+};
+
+enum cond_state{
+	COND_WAIT,
+	COND_OPEN, //after signal
+	COND_UNDEF
 };
 
 struct __bjthread_t
@@ -50,8 +57,16 @@ struct __bjmutex_t
 	int blocked_thread_tid;
 };
 
+struct __bjcond_t
+{
+	int state;
+};
+
+
 enum returned_codes
 {
+	RET_THREAD_ERROR,
+	RET_COND_ERROR,
 	RET_MUTEX_ERROR,
 	RET_SUCCESS = 0
 };

@@ -31,17 +31,17 @@ int bjthread_mutex_unlock(bjmutex_t *bjmutex);
 /*
  * Utworzenie zmiennej warunkowej
  */
-//int bjthread_cond(cond_t *cond);
+int bjthread_cond_init(bjcond_t *bjcond);
 
 /*
  * Oczekiwanie na zmienna warunkowa. Po zasygnalizowaniu zmiennej zajmowany jest mutex
  */
-//int bjthread_wait(cond_t *cond, mutex_t *mutex);
+int bjthread_cond_wait(bjcond_t *bjcond, bjmutex_t *bjmutex);
 
 /*
  * Zasygnalizowanie zmiennej warunkowej
  */
-//int bjthread_signal(cond_t *cond);
+int bjthread_cond_signal(bjcond_t *bjcond);
 
 /*
  * Usuniecie mutexa lub zmiennej warunkowej (obiekt podany przez wskaznik o)
